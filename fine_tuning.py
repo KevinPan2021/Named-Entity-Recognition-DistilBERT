@@ -134,7 +134,7 @@ def backpropagation(model, dataloader, optimizer, scaler):
 
     
 # model training loop
-def model_finetuning(model, train_loader, valid_loader, device):
+def model_finetuning(model, train_loader, valid_loader):
     learning_rate = 2e-5
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
     n_epochs = 10

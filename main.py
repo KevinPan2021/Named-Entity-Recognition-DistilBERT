@@ -215,7 +215,7 @@ def main():
          
     
     # fine tuning
-    model_finetuning(model, train_loader, val_loader, compute_device())
+    model_finetuning(model, train_loader, val_loader)
     
     # load the best model
     model.load_state_dict(torch.load(f'{type(model).__name__}_finetuned.pth'))
