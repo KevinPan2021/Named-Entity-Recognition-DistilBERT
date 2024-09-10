@@ -53,8 +53,20 @@
    <property name="styleSheet">
     <string notr="true">background-color:rgb(32, 38, 52);</string>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_4">
-    <item>
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>15</number>
+    </property>
+    <property name="topMargin">
+     <number>15</number>
+    </property>
+    <property name="rightMargin">
+     <number>15</number>
+    </property>
+    <property name="bottomMargin">
+     <number>15</number>
+    </property>
+    <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -111,91 +123,13 @@ color:white;</string>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_6">
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color:white</string>
-          </property>
-          <property name="text">
-           <string>Model</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="comboBox_model">
+         <widget class="QLabel" name="label_7">
           <property name="minimumSize">
            <size>
-            <width>140</width>
-            <height>35</height>
+            <width>50</width>
+            <height>0</height>
            </size>
           </property>
-          <property name="maximumSize">
-           <size>
-            <width>140</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>8</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QComboBox {
-	border-radius: 4px;
-	background-color:rgb(83, 89, 110);
-	color:white;
-	border: 1px solid black;
-}
-
-QComboBox QAbstractItemView { color: white; }
-
-QComboBox:disabled {
-	border-radius: 4px;
-	background-color:rgb(83, 89, 110);
-	color:rgb(200, 200, 200);
-	border: 0px solid black;
-}</string>
-          </property>
-          <item>
-           <property name="text">
-            <string>DistilBERT</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_7">
           <property name="font">
            <font>
             <pointsize>10</pointsize>
@@ -207,19 +141,22 @@ QComboBox:disabled {
           <property name="text">
            <string>Class</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
          </widget>
         </item>
         <item>
          <widget class="QLineEdit" name="lineEdit_class">
           <property name="minimumSize">
            <size>
-            <width>140</width>
+            <width>0</width>
             <height>35</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>140</width>
+            <width>16777215</width>
             <height>35</height>
            </size>
           </property>
@@ -227,25 +164,25 @@ QComboBox:disabled {
            <string notr="true">background-color: rgb(56, 64, 85);
 color:white;</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
           <property name="readOnly">
            <bool>true</bool>
           </property>
          </widget>
         </item>
-        <item>
-         <spacer name="horizontalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
        </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="lineWidth">
+         <number>2</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
