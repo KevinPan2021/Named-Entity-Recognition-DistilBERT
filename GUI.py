@@ -1,15 +1,15 @@
 application_name = 'Named Entity Recognition'
 # pyqt packages
+from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtGui import QTextCursor, QTextCharFormat, QColor
-
 import sys
 import torch
 from transformers import DistilBertTokenizerFast
 import pickle
 import matplotlib.pyplot as plt
 
-from qt_main import Ui_Application
+
 from main import BidirectionalMap, compute_device, inference
 from distilBERT import DistilBERT
 
@@ -26,13 +26,12 @@ def get_colors(num_colors):
 
 
             
-class QT_Action(Ui_Application, QMainWindow):
+class QT_Action(QMainWindow):
     
     def __init__(self):
         # system variable
         super(QT_Action, self).__init__()
-        self.setupUi(self)
-        self.retranslateUi(self)
+        uic.loadUi('qt_main.ui', self)
         self.setWindowTitle(application_name) # set the title
         
         # runtime variable
@@ -46,7 +45,13 @@ class QT_Action(Ui_Application, QMainWindow):
         self.colors = get_colors(len(self.label_ind_map))
         
         # load the model
-        self.load_model_action()
+        self.model = DistilBERT(nclasses=len(self.label_ind_map)).model
+        self.tokenizer = DistilBertTokenizerFast.from_pretrained('dslim/distilbert-NER')
+    
+        self.model.load_state_dict(torch.load(f'{type(self.model).__name__}_finetuned.pth'))
+        
+        # move model to GPU
+        self.model = self.model.to(compute_device())
         
         
                 
@@ -54,24 +59,7 @@ class QT_Action(Ui_Application, QMainWindow):
     def link_commands(self,):
         self.textEdit_text.textChanged.connect(self.text_edit_action)
         self.textEdit_text.cursorPositionChanged.connect(self.cursor_action)
-        self.comboBox_model.activated.connect(self.load_model_action)
         self.toolButton_process.clicked.connect(self.process_action)
-                
-        
-    # choosing between models
-    def load_model_action(self,):
-        self.model_name = self.comboBox_model.currentText()
-        
-        # load the model
-        if self.model_name == 'DistilBERT':
-            self.model = DistilBERT(nclasses=len(self.label_ind_map)).model
-            self.tokenizer = DistilBertTokenizerFast.from_pretrained('dslim/distilbert-NER')
-        
-        self.model.load_state_dict(torch.load(f'{type(self.model).__name__}_finetuned.pth'))
-            
-        # move model to GPU
-        self.model = self.model.to(compute_device())
-    
     
     
     def text_edit_action(self):
