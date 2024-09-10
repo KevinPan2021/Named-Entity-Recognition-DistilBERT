@@ -1,15 +1,18 @@
 from transformers import DistilBertTokenizerFast
 import torch
 from sklearn.model_selection import train_test_split
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import DataLoader
 import ast
+import sys
+import os
 import pandas as pd
 import pickle
 import logging
+sys.path.append(os.path.join(os.path.dirname(__file__), 'nets'))
 
 from distilBERT import DistilBERT
 from fine_tuning import model_finetuning, feedforward
-
+from dataset import NER_Dataset
 
 
 # Set the logging level to suppress warnings
@@ -86,29 +89,6 @@ def label_token_alignment(tokens, Y, label_all_tokens=True):
 
 
 
-class NER_Dataset(Dataset):
-    def __init__(self, data, label_ind_map):
-        self.data = data.copy()
-        
-        # Convert label strings to indices
-        self.data['labels'] = [
-            torch.tensor([label_ind_map.get_value(label) for label in labels], dtype=torch.long) for labels in self.data['labels']
-        ]
-        
-        
-    def __getitem__(self, idx):
-        input_ids = self.data['input_ids'][idx]
-        attention_mask = self.data['attention_mask'][idx]
-        labels = self.data['labels'][idx]
-        
-        return {
-            'input_ids': torch.tensor(input_ids, dtype=torch.long),
-            'attention_mask': torch.tensor(attention_mask, dtype=torch.long),
-            'labels': labels
-        }
-    
-    def __len__(self):
-        return len(self.data['input_ids'])
     
     
     
@@ -166,7 +146,6 @@ def main():
     # Save the instance to a pickle file
     with open("label_ind_map.pkl", "wb") as f:
         pickle.dump(label_ind_map, f)
-    print('nclasses', len(label_ind_map))
         
     # define a model and a tokenizer
     model = DistilBERT(nclasses=len(label_ind_map)).model
